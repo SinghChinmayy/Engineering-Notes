@@ -8,7 +8,7 @@ The notes are also published on my website at **[chinmaysingh.me/notes](https://
 
 I want to learn deliberately rather than collect isolated answers. Each entry turns a concept or exercise into a reusable reference I can revise from later.
 
-For recruiters and collaborators, it is a transparent view of how I learn: I break problems into clear steps, write down why something works, and keep the corrections visible instead of pretending I got everything right the first time.
+For recruiters and collaborators, it is a transparent view of how I learn: I break problems into clear steps, write down why something works, and check every fact and code example before it goes in.
 
 ## How it works
 
