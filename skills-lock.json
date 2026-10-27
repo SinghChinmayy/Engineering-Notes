@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "engineering-notes": {
+      "source": "SinghChinmayy/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/learning/engineering-notes/SKILL.md",
+      "computedHash": "5fab7baef390688b563026a93554df8bf8c7eb0239b9b4823334014a4e38b49a"
+    }
+  }
+}

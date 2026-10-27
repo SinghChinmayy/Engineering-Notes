@@ -1,11 +1,31 @@
 # Repository guidance
 
-This repository contains SQL learning material intended to be useful to both its author and other learners.
+This repository holds my engineering notes: one continuous note per topic, written from my notebook and Markdown notes, kept useful for revision, and published to [chinmaysingh.me/notes](https://chinmaysingh.me/notes) by CI. It is meant to be useful to both me and other learners.
 
-- Put explanatory notes, references, and concept summaries in `notes.md`.
-- Preserve existing notes when adding new material. Keep note edits minimal; when changes are necessary, limit them to the relevant topic, subtopic, or directly affected content.
-- Write notes as an experienced SQL teacher helping a learner revisit the material later. Make each note self-contained, accurate, and polished: introduce the concept in plain language, explain why and when to use it, show a small readable SQL example, explain the important parts of that example, and call out common mistakes or distinctions when useful. Prefer clear headings and short sections over dense prose. Define unfamiliar terms on first use, use consistent terminology, and do not assume the reader remembers the original question or context.
-- Put SQL practice questions, attempts, and solutions in `questions/` so progress can be tracked over time. Whenever adding a new question, update `README.md` to reflect the current question count and add it to the practice-question list.
-- When asked to process the inbox, follow the workflow in `inbox/AGENTS.md`.
+## Processing the inbox
 
-Keep new material clear, self-contained, and focused on learning.
+When asked to "process my notes" or "process the inbox", follow the `engineering-notes` skill. It is installed in this repository (`.claude/skills/` and `.agents/skills/`). If your agent cannot see it, install it with:
+
+```bash
+npx skills add SinghChinmayy/agent-skills --skill engineering-notes
+```
+
+This repository uses the skill's default layout:
+
+- `inbox/`: raw input, git-ignored except `inbox/README.md`.
+- `notes/<subject>/<topic>.md`: one growing note per topic, with diagrams in `notes/<subject>/assets/`.
+- `practice/<subject>/NNN-<slug>.md`: solved exercises and interview problems.
+- `log.md`: what was processed and where it went.
+- `scripts/check_notes.py`: run it before every commit. CI runs it too, and nothing is published unless it passes.
+
+## Writing
+
+- Write notes as an experienced teacher helping a learner revisit the material later, but in my voice: keep my own analogies and the way I understood it.
+- Make each note self-contained, accurate and polished: introduce the concept in plain language, explain why and when to use it, show a small readable example, explain the important parts of that example, and call out common mistakes or distinctions when useful.
+- Prefer clear headings and short sections over dense prose. Define unfamiliar terms on first use, use consistent terminology, and do not assume the reader remembers the original question or context.
+- Preserve existing notes. Keep edits limited to the relevant topic, subtopic or directly affected content, and record them in the note's `## History`.
+- When a note or practice file is added, update the index in `README.md`.
+
+## Publishing
+
+Pushing to `main` publishes. CI validates the notes, copies `notes/` and `practice/` into the website repository, builds the site, and pushes only if the build passes. Commit freely, but push only when I say so.
