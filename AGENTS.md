@@ -28,4 +28,9 @@ This repository uses the skill's default layout:
 
 ## Publishing
 
-Pushing to `main` publishes. CI validates the notes, copies `notes/` and `practice/` into the website repository, builds the site, and pushes only if the build passes. Commit freely, but push only when I say so.
+There are two ways to publish, and both run the same checks:
+
+- **Push to `main`**: CI validates the notes, copies `notes/` and `practice/` into the website repository, builds the site, and pushes only if the build passes.
+- **Open a pull request** from a branch in this repository: CI validates it, merges it automatically if it only changes notes content (`notes/`, `practice/`, `log.md`, `README.md`), then publishes. Pull requests that touch scripts or workflows wait for a manual merge, and forks are never auto-merged.
+
+Commit freely, but push or open a pull request only when I say so: both end up on the website.
