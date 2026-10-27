@@ -1,4 +1,14 @@
-# Data Science Skills
+---
+title: Data Science Skills
+subject: sql
+kind: practice
+summary: "Find candidates who have every required skill: Python, Tableau and PostgreSQL."
+tags: [sql, having, count-distinct]
+difficulty: easy
+created: 2026-10-04
+updated: 2026-10-27
+related: [filtering-groups-with-having]
+---
 
 ## Question
 
@@ -48,3 +58,7 @@ ORDER BY candidate_id ASC;
 - `WHERE` filters eligible skill rows before `GROUP BY`.
 - `COUNT(DISTINCT skill)` counts how many required skills each candidate has.
 - `HAVING` keeps only candidates whose distinct required-skill count is three.
+
+## Related note
+
+- [Filtering grouped results with HAVING](../../notes/sql/filtering-groups-with-having.md)
