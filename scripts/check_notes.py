@@ -2,7 +2,8 @@
 """Validate notes/ and practice/ before they are committed or published.
 
 Checks front matter, file placement, relative links and images, SVG
-well-formedness, and that no raw inbox material is tracked by git.
+well-formedness, that kept notebook pages carry no metadata and are a
+sensible size, and that no raw inbox material is tracked by git.
 Standard library only. Exit code 1 on any error.
 
     python3 scripts/check_notes.py
@@ -13,6 +14,8 @@ import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+
+from strip_metadata import has_metadata
 
 ROOT = Path(__file__).resolve().parent.parent
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -103,6 +106,13 @@ def main():
         if data is not None:
             check_fields(path, data, NOTE_REQUIRED if kind == "notes" else PRACTICE_REQUIRED, subject)
         check_links(path, body)
+    for photo in sorted(ROOT.glob("notes/*/sources/*")):
+        if photo.suffix.lower() not in {".jpg", ".jpeg"}:
+            error(photo, "notebook pages must be JPEG (.jpg) so their metadata can be checked")
+        elif has_metadata(photo.read_bytes()):
+            error(photo, "photo still has EXIF/XMP metadata (may include GPS): run scripts/strip_metadata.py on it")
+        elif photo.stat().st_size > 800_000:
+            error(photo, f"photo is {photo.stat().st_size // 1000} KB; resize it to about 1500x2000 (sips -Z 2000) first")
     for svg in ROOT.glob("notes/*/assets/*.svg"):
         try:
             ET.parse(svg)

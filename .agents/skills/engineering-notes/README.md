@@ -11,12 +11,13 @@ You study the way you already do: a paper notebook, a quick Markdown file. Drop 
 1. **Transcribes** handwriting faithfully, and asks about the words it can't read instead of guessing them.
 2. **Extracts the essence**: the concepts, *your* analogies and mental models, examples, mistakes and doubts.
 3. **Merges** it into one continuous note per topic (`notes/<subject>/<topic>.md`), so a new page on joins extends the joins note instead of starting another one.
-4. **Corrects visibly**: wrong claims stay with a clear *Correction*, which is better for revision than a silent rewrite.
-5. **Adds a revision block** to every note: key takeaways and self-check questions with hidden answers.
-6. **Draws a diagram only when it earns its place** (an order, a structure, states, a comparison), in a friendly hand-drawn style.
-7. **Validates, logs and commits.** It never pushes on its own, because pushing publishes.
+4. **Checks everything**: every claim is fact-checked, and every code example is run (implementations are tested against a trusted reference). Wrong claims stay with a clear *Correction*, which is better for revision than a silent rewrite.
+5. **Explains algorithms step by step** in a short numbered "How it works", and lists the videos and articles you used under "Further explanation" with their real titles.
+6. **Adds a revision block** to every note: key takeaways and self-check questions with hidden answers.
+7. **Draws a diagram only when it earns its place** (an order, a structure, states, a comparison), in a friendly hand-drawn style.
+8. **Validates, logs and commits** on a branch. It publishes only when you say so, by PR (which CI can auto-merge) or by pushing to `main`, and then confirms the note is live.
 
-Raw inputs are never committed, so your notebook stays private. Only the distilled notes are published.
+Raw inputs are never committed. If you want your handwritten pages kept with the note, opt in from your notes repository's `AGENTS.md`: the agent resizes each page, strips its metadata (phone photos can carry GPS coordinates), and links the pages from the note.
 
 ## When to use it
 
@@ -30,6 +31,7 @@ Say "process my notes", "process the inbox", "digest my notes", "add this to my 
 | Note and practice templates | [`references/note-template.md`](references/note-template.md) |
 | When to draw, and how | [`references/diagram-style.md`](references/diagram-style.md) |
 | Diagram helper (boxes, arrows, a robot) | [`scripts/sketch.py`](scripts/sketch.py) |
+| Strip EXIF/GPS from kept notebook photos | [`scripts/strip_metadata.py`](scripts/strip_metadata.py) |
 
 The skill expects a notes repository with `inbox/`, `notes/`, `practice/`, `log.md` and a `scripts/check_notes.py` validator. [SinghChinmayy/Engineering-Notes](https://github.com/SinghChinmayy/Engineering-Notes) is a working example, including the GitHub Action that publishes notes to a website.
 
@@ -72,5 +74,6 @@ engineering-notes/
 ├── assets/engineering-notes-flow.svg
 ├── references/note-template.md
 ├── references/diagram-style.md
-└── scripts/sketch.py
+├── scripts/sketch.py
+└── scripts/strip_metadata.py
 ```
