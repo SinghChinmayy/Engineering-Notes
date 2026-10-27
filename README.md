@@ -14,7 +14,7 @@ For recruiters and collaborators, it is a transparent view of how I learn: I bre
 
 ![I write in a notebook or in Markdown and drop the pages into inbox/. An agent with the engineering-notes skill transcribes them, merges them into one note per topic with revision questions and an occasional diagram, and commits. When I push, CI validates the notes, syncs them to my website, builds it, and publishes.](docs/how-it-works.svg)
 
-1. I study as usual, in a paper notebook or a quick Markdown file, and drop photos, PDFs or `.md` files into [`inbox/`](inbox/). The inbox is git-ignored, so the raw pages stay private.
+1. I study as usual, in a paper notebook or a quick Markdown file, and drop photos, PDFs or `.md` files into [`inbox/`](inbox/). The inbox itself is git-ignored. Notebook pages I want to keep are resized, stripped of metadata such as GPS location, and stored next to their note in `notes/<subject>/sources/`, so every note links back to the handwritten original.
 2. I ask my agent to "process my notes". It follows the [`engineering-notes` skill](https://github.com/SinghChinmayy/agent-skills/tree/main/skills/learning/engineering-notes): it transcribes, keeps my understanding, merges into the right topic, adds a revision block, and draws a diagram only when it helps.
 3. I review the commit and push. [CI](.github/workflows/publish.yml) checks every note with [`scripts/check_notes.py`](scripts/check_notes.py), copies the notes into my website, builds it, and publishes only if the build passes.
 

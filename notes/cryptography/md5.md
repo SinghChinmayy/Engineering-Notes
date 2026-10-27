@@ -158,6 +158,24 @@ MD5 stores numbers little-endian (least significant byte first), which is why th
 
 - Video: [How the MD5 hash function works (from scratch)](https://www.youtube.com/watch?v=5MiMK45gkTY) by RareSkills walks through the algorithm step by step.
 
+## My notebook pages
+
+The handwritten pages this note was written from, kept as they are, corrections and all. Click a page to open it full size.
+
+<details>
+<summary>Show the three notebook pages</summary>
+
+![Notebook page 1: MD5 as a hash function with a 128-bit output, why 128 bits is 32 hex characters, 2 to the 128 possibilities, and why MD5 is no longer secure.](./sources/md5-page-1.jpg)
+*Page 1: what MD5 is, hex length, and why it is broken.*
+
+![Notebook page 2: how MD5 works, padding to 512 bits, the hashlib example, and the 0x prefix for hex numbers.](./sources/md5-page-2.jpg)
+*Page 2: padding, the Python example, and hex notation.*
+
+![Notebook page 3: 32-bit words, 512 bits split into 16 words, 4 words of output, and the bitwise operations MD5 uses including rotation.](./sources/md5-page-3.jpg)
+*Page 3: words, blocks and the operations.*
+
+</details>
+
 ## Revision
 
 ### Key takeaways
@@ -206,4 +224,4 @@ For accidental corruption, yes. If someone could tamper with the file, no: use S
 
 ## History
 
-- 2026-10-27: First notes, from three notebook pages on MD5 and the RareSkills video; added the step-by-step algorithm, a from-scratch implementation and corrections.
+- 2026-10-27: First notes, from three notebook pages on MD5 and the RareSkills video; added the step-by-step algorithm, a from-scratch implementation and corrections. The original pages are kept under [My notebook pages](#my-notebook-pages).
