@@ -20,6 +20,12 @@ For recruiters and collaborators, it is a transparent view of how I learn: I bre
 
 ## Notes
 
+### Cryptography
+
+| Note | What it covers |
+| --- | --- |
+| [MD5 message digest](notes/cryptography/md5.md) | 128-bit digests and hex, the algorithm step by step with a from-scratch implementation, and why MD5 is no longer secure |
+
 ### SQL
 
 | Note | What it covers |
