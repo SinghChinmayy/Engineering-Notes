@@ -15,8 +15,19 @@ This repository uses the skill's default layout:
 - `inbox/`: raw input, git-ignored except `inbox/README.md`.
 - `notes/<subject>/<topic>.md`: one growing note per topic, with diagrams in `notes/<subject>/assets/`.
 - `practice/<subject>/NNN-<slug>.md`: solved exercises and interview problems.
+- `notes/<subject>/sources/`: kept notebook pages (see below).
 - `log.md`: what was processed and where it went.
 - `scripts/check_notes.py`: run it before every commit. CI runs it too, and nothing is published unless it passes.
+
+## Keep notebook pages
+
+Yes: keep my handwritten pages with each note so I can look at the originals later. For every photo or scanned page:
+
+1. Resize it to about 1500×2000 and compress it: `sips -Z 2000 -s format jpeg -s formatOptions 72 in.jpg --out notes/<subject>/sources/<topic>-page-N.jpg`.
+2. Strip its metadata: `python3 scripts/strip_metadata.py notes/<subject>/sources/*.jpg`. Phone photos can carry GPS location; `check_notes.py` rejects any page that still has metadata or is over 800 KB.
+3. Link the pages from the note under `## My notebook pages`, inside a `<details>` block, with a one-line caption per page.
+
+Skip any page that shows personal content and ask me instead. The raw files in `inbox/` stay git-ignored either way.
 
 ## Writing
 
