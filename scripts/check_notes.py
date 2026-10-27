@@ -48,7 +48,11 @@ def front_matter(path, text):
         if not sep:
             error(path, f"line {n}: expected 'key: value'")
             continue
-        data[key.strip()] = value.split(" #")[0].strip()
+        value = value.split(" #")[0].strip()
+        quoted = value[:1] in "\"'" and value[-1:] == value[:1]
+        if not quoted and not LIST.match(value) and (": " in value or value[:1] in "&*!|>%@`{"):
+            error(path, f"line {n}: quote the value of '{key.strip()}' (YAML would misread it)")
+        data[key.strip()] = value.strip("\"'") if quoted else value
     return data, text[end + 5:]
 
 

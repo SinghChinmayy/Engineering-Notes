@@ -2,7 +2,7 @@
 title: Data Science Skills
 subject: sql
 kind: practice
-summary: Find candidates who have every required skill: Python, Tableau and PostgreSQL.
+summary: "Find candidates who have every required skill: Python, Tableau and PostgreSQL."
 tags: [sql, having, count-distinct]
 difficulty: easy
 created: 2026-10-04
