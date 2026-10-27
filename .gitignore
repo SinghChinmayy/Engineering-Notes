@@ -1,0 +1,5 @@
+# Raw study material stays private: only the distilled notes are published.
+inbox/*
+!inbox/README.md
+
+.DS_Store

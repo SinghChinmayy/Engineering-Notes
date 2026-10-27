@@ -1,4 +1,14 @@
-# Histogram of Tweets
+---
+title: Histogram of Tweets
+subject: sql
+kind: practice
+summary: Count tweets per user in 2022, then count users per tweet count.
+tags: [sql, cte, group-by, date-range]
+difficulty: easy
+created: 2026-10-04
+updated: 2026-10-27
+related: [filtering-groups-with-having]
+---
 
 ## Question
 
@@ -62,3 +72,7 @@ ORDER BY tweet_bucket;
 - A common table expression (CTE) separates the two aggregation steps: tweets per user, then users per tweet-count bucket.
 - The half-open date range includes every timestamp in 2022 without relying on a time component at the end of the year.
 - The outer `COUNT(*)` counts user rows, not tweets, because the CTE contains one row per user.
+
+## Related note
+
+- [Filtering grouped results with HAVING](../../notes/sql/filtering-groups-with-having.md)
