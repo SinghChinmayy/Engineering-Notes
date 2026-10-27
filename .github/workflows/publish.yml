@@ -1,0 +1,105 @@
+name: Publish notes
+
+# Validate notes on every pull request. On main, copy notes/ and practice/
+# into the website repository, build the site, and push only if the build
+# passes; Cloudflare Pages then deploys the website.
+#
+# Needs one secret, WEBSITE_REPO_TOKEN: a fine-grained personal access token
+# with "Contents: Read and write" on SinghChinmayy/SinghChinmayy only.
+# Without it, validation still runs and publishing is skipped with a warning.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "notes/**"
+      - "practice/**"
+      - "scripts/check_notes.py"
+      - ".github/workflows/publish.yml"
+  pull_request:
+    paths:
+      - "notes/**"
+      - "practice/**"
+      - "scripts/check_notes.py"
+  workflow_dispatch:
+
+concurrency:
+  group: publish-notes
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate notes
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/check_notes.py
+
+  publish:
+    name: Publish to the website
+    needs: validate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      WEBSITE_REPO: SinghChinmayy/SinghChinmayy
+      CONTENT_DIR: src/content/engineering-notes
+    steps:
+      - name: Check the website token
+        id: token
+        env:
+          TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::warning::WEBSITE_REPO_TOKEN is not set, so the notes were validated but not published."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.token.outputs.ok == 'true'
+        with:
+          path: notes-repo
+
+      - uses: actions/checkout@v4
+        if: steps.token.outputs.ok == 'true'
+        with:
+          repository: ${{ env.WEBSITE_REPO }}
+          token: ${{ secrets.WEBSITE_REPO_TOKEN }}
+          path: website
+
+      - name: Copy notes into the website
+        if: steps.token.outputs.ok == 'true'
+        run: |
+          rm -rf "website/$CONTENT_DIR"
+          mkdir -p "website/$CONTENT_DIR"
+          cp -R notes-repo/notes "website/$CONTENT_DIR/notes"
+          cp -R notes-repo/practice "website/$CONTENT_DIR/practice"
+
+      - uses: actions/setup-node@v4
+        if: steps.token.outputs.ok == 'true'
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Build the website with the new notes
+        if: steps.token.outputs.ok == 'true'
+        working-directory: website
+        run: |
+          npm ci
+          npm run build
+
+      - name: Commit and push
+        if: steps.token.outputs.ok == 'true'
+        working-directory: website
+        run: |
+          git add "$CONTENT_DIR"
+          if git diff --cached --quiet; then
+            echo "The website already has these notes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "content: sync engineering notes from Engineering-Notes@${GITHUB_SHA::7}"
+          git push
